@@ -1864,7 +1864,6 @@ def parse_map(args, map_dict, step_location, db_update_queue, wh_update_queue,
     sightings = {}
     new_spawn_points = []
     sp_id_list = []
-    encounters = 0
     hlvl_account = None
     hlvl_api = None
     using_accountset = False
@@ -1942,22 +1941,24 @@ def parse_map(args, map_dict, step_location, db_update_queue, wh_update_queue,
         # If we have encounters we get an account form AccountSet to
         # encounter all of them in the same parse
         if args.encounter:
-            for p in wild_pokemon:
-                if p.pokemon_data.pokemon_id in args.enc_whitelist:
-                    encounters += 1
+            encounter = next(p for p in wild_pokemon if
+                             p.pokemon_data.pokemon_id in
+                             args.enc_whitelist) is not None
 
-        if encounters > 0:
-            # If the host has L30s in the regular account pool, we
-            # can just use the current account.
-            if level >= 30:
-                hlvl_account = account
-                hlvl_api = api
-            else:
-                hlvl_account, hlvl_api = get_hlvlaccount(args, account_sets,
-                                                         status, step_location,
-                                                         key_scheduler)
-                if hlvl_account and hlvl_api:
-                    using_accountset = True
+            if encounter:
+                # If the host has L30s in the regular account pool, we
+                # can just use the current account.
+                if level >= 30:
+                    hlvl_account = account
+                    hlvl_api = api
+                else:
+                    hlvl_account, hlvl_api = get_hlvlaccount(args,
+                                                             account_sets,
+                                                             status,
+                                                             step_location,
+                                                             key_scheduler)
+                    if hlvl_account and hlvl_api:
+                        using_accountset = True
 
         for p in wild_pokemon:
 
@@ -2446,6 +2447,9 @@ def get_hlvlaccount(args, account_sets, status, step_location, key_scheduler):
 
     except Exception as e:
         log.exception('There was an error getting L30 account: %s.', e)
+
+        # If we have an exception we must free the account
+        account_sets.release(hlvl_account)
 
     return None, None
 

@@ -2051,7 +2051,7 @@ def parse_map(args, map_dict, step_location, db_update_queue, wh_update_queue,
             if (args.encounter and (pokemon_id in args.enc_whitelist) and
                     hlvl_account and hlvl_api):
                 pokemon_info = encounter_pokemon(
-                    args, p, hlvl_account, hlvl_api, status)
+                    args, p, hlvl_account, hlvl_api, status, step_location)
 
             pokemon[p.encounter_id] = {
                 'encounter_id': b64encode(str(p.encounter_id)),
@@ -2454,12 +2454,13 @@ def get_hlvlaccount(args, account_sets, status, step_location, key_scheduler):
     return None, None
 
 
-def encounter_pokemon(args, pokemon, hlvl_account, hlvl_api, status):
+def encounter_pokemon(args, pokemon, hlvl_account, hlvl_api, status,
+                      step_location):
     pokemon_id = None
     result = False
     try:
         pokemon_id = pokemon.pokemon_data.pokemon_id
-        scan_location = [pokemon.latitude, pokemon.longitude]
+        scan_location = [step_location[0], step_location[1]]
 
         time.sleep(args.encounter_delay)
 

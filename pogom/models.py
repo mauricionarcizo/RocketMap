@@ -1941,9 +1941,9 @@ def parse_map(args, map_dict, step_location, db_update_queue, wh_update_queue,
         # If we have encounters we get an account form AccountSet to
         # encounter all of them in the same parse
         if args.encounter:
-            encounter = next(p for p in wild_pokemon if
+            encounter = next((p for p in wild_pokemon if
                              p.pokemon_data.pokemon_id in
-                             args.enc_whitelist) is not None
+                             args.enc_whitelist), None) is not None
 
             if encounter:
                 # If the host has L30s in the regular account pool, we

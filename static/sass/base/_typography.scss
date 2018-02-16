@@ -30,6 +30,10 @@ body, input, select, textarea {
   }
 }
 
+.ui-widget {
+  font-family: _font(family) !important;
+}
+
 .gm-style .gm-style-iw {
   font-family: _font(family) !important;
   font-size: 13pt !important;

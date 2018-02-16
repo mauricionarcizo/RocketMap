@@ -727,7 +727,7 @@ function gymLabel(gym, includeMembers = true) {
             if (raid.pokemon_id !== null && pokemonWithImages.indexOf(raid.pokemon_id) !== -1) {
                 raidImage = `<span class="gym pokemon-large-sprite n${raid.pokemon_id}"></span>`
             } else {
-                raidImage = `<img class='gym sprite' src='${gymImage}'>`
+                raidImage = `<img class='gym sprite' src='static/images/raid/${gymTypes[gym.team_id]}_${raid.level}_unknown.png'>`
             }
             if (raid.pokemon_id === null) {
                 image = `

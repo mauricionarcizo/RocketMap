@@ -2347,27 +2347,19 @@ function getSidebarGymMember(pokemon) {
                             <div class="ivs">
                                 <div class="iv">
                                     <div class="type">ATK</div>
-                                    <div class="value">
-                                        ${pokemon.iv_attack}
-                                    </div>
+                                    <div class="value">${pokemon.iv_attack}</div>
                                 </div>
                                 <div class="iv">
                                     <div class="type">DEF</div>
-                                    <div class="value">
-                                        ${pokemon.iv_defense}
-                                    </div>
+                                    <div class="value">${pokemon.iv_defense}</div>
                                 </div>
                                 <div class="iv">
                                     <div class="type">STA</div>
-                                    <div class="value">
-                                        ${pokemon.iv_stamina}
-                                    </div>
+                                    <div class="value">${pokemon.iv_stamina}</div>
                                 </div>
-                                <div class="iv" style="width: 36px;"">
+                                <div class="iv" style="width:3em;"">
                                     <div class="type">PERFECT</div>
-                                    <div class="value">
-                                        ${perfectPercent.toFixed(0)}<span style="font-size: .6em;">%</span>
-                                    </div>
+                                    <div class="value">${perfectPercent.toFixed(0)}<span style="font-size:.7em">%</span></div>
                                 </div>
                             </div>
                         </td>

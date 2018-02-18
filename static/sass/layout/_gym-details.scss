@@ -112,31 +112,40 @@
     }
 
     .ivs {
+      @media screen and (max-width: 480px) {
+        font-size: 14px !important;
+      }
+
       color: rgb(93,109,126);
       float: left;
       min-width: 110px;
+      font-size: 16px;
 
       .iv {
         text-align: center;
-        width: 20px;
+        width: 1.3em;
         display: inline-block;
       }
 
       .type {
-        font-size: .5em;
+        font-size: .65em;
         line-height: 1em;
       }
 
       .value {
-        font-size: .75em;
-        font-weight: bold;
+        font-size: .8em;
+        font-weight: 700;
       }
     }
 
     .moves {
-      line-height: 1em;
+      @media screen and (max-width: 400px) {
+        font-size: .6em;
+      }
+
+      line-height: 1.65em;
       color: rgb(93,109,126);
-      font-size: .6em;
+      font-size: .75em;
 
       .move-bar-sprite {
         margin-bottom: 7px;
@@ -154,7 +163,7 @@
         }
 
         .type {
-          margin-top: 2px;
+          margin-bottom: 2px;
           font-size: 8px;
           display: inline-block;
           text-transform: uppercase;
@@ -163,6 +172,7 @@
           color: white;
           font-weight: 300;
           line-height: 1em;
+          vertical-align: middle;
 
           &.fairy {
               background-color: #e898e8;
@@ -258,11 +268,10 @@
         @media screen and (max-width: 480px) {
           margin-right: 2px !important;
         }
-        @media screen and (max-width: 360px) {
+        @media screen and (max-width: 400px) {
           display: none;
         }
         float: right;
-        margin-top: 5px;
       }
     }
 

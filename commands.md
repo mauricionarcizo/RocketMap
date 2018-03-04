@@ -18,13 +18,15 @@ docker run --name scanner rocketmap -cf config/config.ini -scf config/shared-con
 ## SCAN GYMS
 docker run --name scanner rocketmap -cf config/config.ini -scf config/shared-config.ini -ns -gi
 
+-enc --no-api-store
+
 ## SCAN GYMS WITH STATUS ACCOUNTS
-docker run --name scanner rocketmap -cf config/config.ini -scf config/shared-config.ini -ns -gi -ps
+docker run --name scanner rocketmap -cf config/config.ini -scf config/shared-config.ini -ns -gi -ps -enc
 
 ##Start Map Web
-docker run --name map -p 5000:5000 rocketmap -cf config/config.ini -scf config/shared-config.ini -os -gi
+docker run --name map -p 5000:5000 rocketmap -cf config/config.ini -scf config/shared-config.ini -os -gi -enc
 
-docker run --name map -p 5000:5000 rocketmap -cf config/config.ini -scf config/shared-config.ini -os -gi --heroku 8888
+docker run --name map -p 5000:5000 rocketmap -cf config/config.ini -scf config/shared-config.ini -os -gi --heroku -enc
 
 ##LevelUP
 docker run --name levelup rocketmap-up -w 30 -ams 1000 -cf config/config.ini -scf config/shared-config.ini

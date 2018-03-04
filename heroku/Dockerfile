@@ -15,7 +15,7 @@ WORKDIR /usr/src/app
 ENTRYPOINT ["dumb-init", "-r", "15:2", "python", "./runserver.py", "--host", "0.0.0.0", "-P", "$PORT"]
 
 # Set default options when container is run without any command line arguments
-CMD ["-cf", "config/config.ini", "-scf","config/shared-config.ini", "-os", "-gi", "--heroku"]
+CMD ["-cf", "config/config.ini", "-scf","config/shared-config.ini", "-os", "-gi", "--heroku", "8"]
 
 COPY requirements.txt /usr/src/app/
 

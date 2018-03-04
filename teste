@@ -1,0 +1,8 @@
+Start Scan
+python runserver.py -cf config/config.ini -scf config/shared-config.ini -ns -v
+
+Start Map
+python runserver.py -cf config/config.ini -scf config/shared-config.ini -os
+
+Start LevelUP
+python tools/levelup.py -w 30 -ams 1000 -cf config/config.ini -scf config/shared-config.ini

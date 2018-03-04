@@ -503,12 +503,19 @@ def main():
             ssl_context.load_cert_chain(
                 args.ssl_certificate, args.ssl_privatekey)
             log.info('Web server in SSL mode.')
+
+        port = None
+        if args.heroku:
+            port = int(os.environ.get("PORT", 5000))
+        else:
+            port = args.port
+
         if args.verbose:
             app.run(threaded=True, use_reloader=False, debug=True,
-                    host=args.host, port=args.port, ssl_context=ssl_context)
+                    host=args.host, port=port, ssl_context=ssl_context)
         else:
             app.run(threaded=True, use_reloader=False, debug=False,
-                    host=args.host, port=args.port, ssl_context=ssl_context)
+                    host=args.host, port=port, ssl_context=ssl_context)
 
 
 def set_log_and_verbosity(log):

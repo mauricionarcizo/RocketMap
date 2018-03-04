@@ -6,16 +6,16 @@
 FROM python:2.7
 
 # Default port the webserver runs on
-EXPOSE 5000
+#EXPOSE 5000
 
 # Working directory for the application
 WORKDIR /usr/src/app
 
 # Set Entrypoint with hard-coded options
-ENTRYPOINT ["dumb-init", "-r", "15:2", "python", "./runserver.py", "--host", "0.0.0.0"]
+ENTRYPOINT ["dumb-init", "-r", "15:2", "python", "./runserver.py", "--host", "0.0.0.0", "-P", "$PORT"]
 
 # Set default options when container is run without any command line arguments
-CMD ["-h"]
+CMD ["-cf", "config/config.ini", "-scf","config/shared-config.ini", "-os", "-gi", "--heroku"]
 
 COPY requirements.txt /usr/src/app/
 

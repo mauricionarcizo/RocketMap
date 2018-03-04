@@ -501,6 +501,8 @@ def get_args():
                               'gyms that are candidates for EX raids. ' +
                               'Only required once per area.'),
                         action='store_true', default=False)
+    parser.add_argument('--heroku', default='9999',
+                        help=('Heroku port.'))
     verbose = parser.add_mutually_exclusive_group()
     verbose.add_argument('-v',
                          help=('Show debug messages from RocketMap ' +

@@ -80,7 +80,7 @@ const cryFileTypes = ['wav', 'mp3']
 const genderType = ['♂', '♀', '⚲']
 const forms = ['unset', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '!', '?', '👤', '☀️', '☔️', '⛄️', '👤', '⚔️', '🛡️', '⚡️']
 const pokemonWithImages = [
-    2, 3, 5, 6, 8, 9, 11, 28, 31, 34, 38, 59, 62, 65, 68, 71, 73, 76, 82, 87, 89, 91, 94, 103, 105, 110, 112, 123, 124, 125, 126, 129, 131, 134, 135, 136, 137, 139, 143, 144, 145, 146, 150, 153, 156, 159, 160, 184, 221, 243, 244, 245, 248, 249, 250, 302, 303, 306, 320, 333, 359, 361, 382, 383, 384
+    2, 3, 5, 6, 8, 9, 11, 28, 31, 34, 38, 59, 62, 65, 68, 71, 73, 76, 80, 82, 87, 89, 91, 94, 103, 105, 110, 112, 121, 123, 124, 125, 126, 129, 131, 134, 135, 136, 137, 139, 142, 143, 144, 145, 146, 150, 153, 156, 159, 160, 184, 221, 243, 244, 245, 248, 249, 250, 302, 303, 306, 320, 333, 344, 359, 361, 382, 383, 384
 ]
 
 const excludedRaritiesList = [
@@ -481,6 +481,9 @@ function initSidebar() {
     $('#spawnpoints-switch').prop('checked', Store.get('showSpawnpoints'))
     $('#ranges-switch').prop('checked', Store.get('showRanges'))
     $('#notify-perfection-wrapper').toggle(Store.get('showPokemonStats'))
+    $('#hideunnotified-switch').prop('checked', Store.get('hideNotNotified'))
+    $('#popups-switch').prop('checked', Store.get('showPopups'))
+    $('#bounce-switch').prop('checked', Store.get('isBounceDisabled'))
     $('#sound-switch').prop('checked', Store.get('playSound'))
     $('#pokemoncries').toggle(Store.get('playSound'))
     $('#cries-switch').prop('checked', Store.get('playCries'))
@@ -1693,17 +1696,17 @@ function processPokemon(item) {
 
     if (!(item['encounter_id'] in mapData.pokemons) &&
          !isPokeExcluded && !isRarityExcluded && isPokeAlive) {
-        // Add marker to map and item to dict.
-        if (!item.hidden) {
+    // Add marker to map and item to dict.
+        const isNotifyPkmn = isNotifyPoke(item)
+        if (!item.hidden && (!Store.get('hideNotNotified') || isNotifyPkmn)) {
             const isBounceDisabled = Store.get('isBounceDisabled')
             const scaleByRarity = Store.get('scaleByRarity')
-            const isNotifyPkmn = isNotifyPoke(item)
 
             if (item.marker) {
                 updatePokemonMarker(item.marker, map, scaleByRarity, isNotifyPkmn)
             } else {
                 newMarker = setupPokemonMarker(item, map, isBounceDisabled, scaleByRarity, isNotifyPkmn)
-                customizePokemonMarker(newMarker, item)
+                customizePokemonMarker(newMarker, item, !Store.get('showPopups'))
                 item.marker = newMarker
             }
 
@@ -2575,11 +2578,11 @@ $(function () {
     $switchActiveRaidGymsOnly.on('change', function () {
         Store.set('showActiveRaidsOnly', this.checked)
         lastgyms = false
+
         updateMap()
     })
 
     $switchRaidMinLevel = $('#raid-min-level-only-switch')
-
     $switchRaidMinLevel.select2({
         placeholder: 'Minimum raid level',
         minimumResultsForSearch: Infinity
@@ -3065,6 +3068,21 @@ $(function () {
         } else {
             criesWrapper.hide(options)
         }
+    })
+
+    $('#bounce-switch').change(function () {
+        Store.set('isBounceDisabled', this.checked)
+        location.reload()
+    })
+
+    $('#hideunnotified-switch').change(function () {
+        Store.set('hideNotNotified', this.checked)
+        location.reload()
+    })
+
+    $('#popups-switch').change(function () {
+        Store.set('showPopups', this.checked)
+        location.reload()
     })
 
     $('#cries-switch').change(function () {

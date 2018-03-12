@@ -78,7 +78,7 @@ const audio = new Audio('static/sounds/ding.mp3')
 const cryFileTypes = ['wav', 'mp3']
 
 const genderType = ['♂', '♀', '⚲']
-const forms = ['unset', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '!', '?', i8ln('Normal'), i8ln('Sunny'), i8ln('Rainy'), i8ln('Snowy')]
+const forms = ['unset', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '!', '?', '👤', '☀️', '☔️', '⛄️', '👤', '⚔️', '🛡️', '⚡️']
 const pokemonWithImages = [
     2, 3, 5, 6, 8, 9, 11, 28, 31, 34, 38, 59, 62, 65, 68, 71, 73, 76, 80, 82, 87, 89, 91, 94, 103, 105, 110, 112, 121, 123, 124, 125, 126, 129, 131, 134, 135, 136, 137, 139, 142, 143, 144, 145, 146, 150, 153, 156, 159, 160, 184, 221, 243, 244, 245, 248, 249, 250, 302, 303, 306, 320, 333, 344, 359, 361, 382, 383, 384
 ]
@@ -562,6 +562,10 @@ function pokemonLabel(item) {
         typesDisplay += `<span class='pokemon type ${type.type.toLowerCase()}'>${i8ln(type.type)}</span>`
     })
 
+    if (weatherBoostedCondition) {
+        weatherDisplay = `<span class="pokemon weather-boost">${weatherEmojis[weatherBoostedCondition]}</span>`
+    }
+
     var contentstring = ''
     var formString = ''
 
@@ -575,7 +579,7 @@ function pokemonLabel(item) {
 
     contentstring += `
     <div class='pokemon name'>
-      ${name} ${genderType[gender - 1]} ${formString}<span class='pokemon name pokedex'><a href='http://pokemon.gameinfo.io/en/pokemon/${id}' target='_blank' title='View in Pokédex'>#${id}</a></span> <span class='pokemon rarity'>${rarityDisplay}</span> ${typesDisplay}
+      ${name} ${genderType[gender - 1]} ${formString}<span class='pokemon name pokedex'><a href='http://pokemon.gameinfo.io/en/pokemon/${id}' target='_blank' title='View in Pokédex'>#${id}</a></span> <span class='pokemon rarity'>${rarityDisplay}</span> ${typesDisplay} ${weatherDisplay}
     </div>`
 
     if (showStats && cp !== null && cpMultiplier !== null) {

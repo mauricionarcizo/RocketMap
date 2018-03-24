@@ -39,12 +39,16 @@ heroku container:push web
 
 VOILÁ!
 
-## Deploy Velha Central e Passo Manso
-docker run --name scanner-velha-passomanso rocketmap -cf config/configVelhaPassoManso.ini -scf config/shared-config.ini -ns -gi -speed -st 15 -w 32 -enc
+## Deploy Velha Central
+docker run --name scanner-velha rocketmap -cf config/configVelha.ini -scf config/shared-config.ini -ns -gi -speed -st 15 -w 32
+docker run --name scanner-velha rocketmap -cf config/configVelha.ini -scf config/shared-config.ini -ns -gi -speed -st 15 -w 32 -enc
+docker run --name scanner-velha rocketmap -cf config/configVelha.ini -scf config/shared-config.ini -ns -speed -st 15 -w 32 -ss
+
+docker run --name lvlup-velha rocketmap-lvlup -w 10 -ams 50 -cf config/configVelha.ini -scf config/shared-config.ini
 
 ## Deploy Centro
 docker run --name scanner-centro rocketmap -cf config/configCentro.ini -scf config/shared-config.ini -ns -gi -speed -st 15 -w 32 -enc -DC
-docker run --name lvlup-centro rocketmap-lvlup -w 100 -ams 1000 -cf config/configCentro.ini -scf config/shared-config.ini
+docker run --name lvlup-centro rocketmap-lvlup -w 10 -ams 50 -cf config/configCentro.ini -scf config/shared-config.ini
 
 ## Deploy Velha VictorKonder
 docker run --name scanner-velha-victorkonder rocketmap -cf config/configVelhaVictorKonder.ini -scf config/shared-config.ini -ns -gi -speed -st 15 -w 32
